@@ -30,5 +30,12 @@ in
   # allow user config permissions
   systemd.tmpfiles.rules = [
     "d /etc/nixos 0775 brenn brenn -"
-  ];  
+  ];
+
+  # install packages
+  environment.systemPackages = with pkgs; [
+    helix
+  ];
+
+  # TODO: configure helix, install xclip and traefik, make aliases  
 }
