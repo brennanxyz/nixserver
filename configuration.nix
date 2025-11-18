@@ -17,6 +17,7 @@ in
       nors = "sudo nixos-rebuild switch";
     };
   };
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # allow ssh connections
   services.openssh.enable = true;
