@@ -8,7 +8,15 @@ in
   imports = [ <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal-combined.nix> ];
 
   # activate zsh
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    syntaxHighlighting.enable = true;
+    shellAliases = {
+      noe = "sudo hx /etc/nixos";
+      nors = "sudo nixos-rebuild switch";
+    };
+  };
 
   # allow ssh connections
   services.openssh.enable = true;
@@ -35,6 +43,7 @@ in
   # install packages
   environment.systemPackages = with pkgs; [
     helix
+    xclip
   ];
 
   # TODO: configure helix, install xclip and traefik, make aliases  
