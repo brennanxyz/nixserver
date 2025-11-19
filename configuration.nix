@@ -22,6 +22,7 @@ in
     shellAliases = {
       noe = "sudo hx /etc/nixos";
       nors = "sudo nixos-rebuild switch";
+      xc = "xclip -selection clipboard";
     };
   };
   environment.pathsToLink = [ "/share/zsh" ];
@@ -46,6 +47,8 @@ in
   # allow user config permissions
   systemd.tmpfiles.rules = [
     "d /etc/nixos 0775 brenn brenn -"
+    "d /etc/nixos/.git 0775 brenn brenn -"
+    "d /etc/nixos/.git/object 0775 brenn brenn -"
   ];
 
   # install packages
@@ -55,6 +58,6 @@ in
     xclip
   ];
 
-  # TODO: configure helix, install xclip and traefik, make aliases
+  # TODO: configure helix, install traefik
   system.stateVersion = "25.05";
 }
