@@ -1,12 +1,19 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 # need secrets across the config
 let
   secrets = import "/etc/nixos/secrets.nix";
 in
 {
-  imports = [ <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal-combined.nix> ];
+  # import hardware config
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
+  # boot
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  
   # activate zsh
   programs.zsh = {
     enable = true;
@@ -47,5 +54,6 @@ in
     xclip
   ];
 
-  # TODO: configure helix, install xclip and traefik, make aliases  
+  # TODO: configure helix, install xclip and traefik, make aliases
+  system.stateVersion = "25.05";
 }
