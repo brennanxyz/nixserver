@@ -50,6 +50,7 @@ in
 
   # install packages
   environment.systemPackages = with pkgs; [
+    git
     helix
     xclip
   ];
