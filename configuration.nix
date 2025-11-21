@@ -58,6 +58,14 @@ in
     xclip
   ];
 
+  # helix config
+  environment.etc."helix/config.toml".text = ''
+    theme = "gruvbox-dark"
+
+    [editor]
+    line-number = "relative"
+  '';
+
   # TODO: configure helix, install traefik
   system.stateVersion = "25.05";
 }
