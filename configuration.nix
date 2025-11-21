@@ -8,6 +8,7 @@ in
   # import hardware config
   imports = [
     ./hardware-configuration.nix
+    (builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz" + "/nixos")
   ];
 
   # boot
@@ -58,13 +59,31 @@ in
     xclip
   ];
 
-  # helix config
-  environment.etc."helix/config.toml".text = ''
-    theme = "gruvbox-dark"
+  # home manager config
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  
+  home-manager.users.root = { pkgs, ...}: {
+    home.stateVersion = "25.05";
+    
+    home.file.".config/helix/config.toml".text = ''
+      theme = "gruvbox-dark"
 
-    [editor]
-    line-number = "relative"
-  '';
+      [editor]
+      line-number = "relative"
+    '';
+  };
+  
+  home-manager.users.brenn = { pkgs, ...}: {
+    home.stateVersion = "25.05";
+    
+    home.file.".config/helix/config.toml".text = ''
+      theme = "gruvbox-dark"
+
+      [editor]
+      line-number = "relative"
+    '';
+  };
 
   # TODO: configure helix, install traefik
   system.stateVersion = "25.05";
