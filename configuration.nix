@@ -62,7 +62,8 @@ in
   # home manager config
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  
+
+  # root home config 
   home-manager.users.root = { pkgs, ...}: {
     home.stateVersion = "25.05";
     
@@ -76,7 +77,8 @@ in
       git-ignore = false
     '';
   };
-  
+
+  # brenn home config
   home-manager.users.brenn = { pkgs, ...}: {
     home.stateVersion = "25.05";
     
