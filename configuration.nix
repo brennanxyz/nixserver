@@ -71,6 +71,9 @@ in
 
       [editor]
       line-number = "relative"
+
+      [editor.file-picker]
+      git-ignore = false
     '';
   };
   
@@ -82,6 +85,9 @@ in
 
       [editor]
       line-number = "relative"
+
+      [editor.file-picker]
+      git-ignore = false
     '';
   };
 
