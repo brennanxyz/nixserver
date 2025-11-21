@@ -85,6 +85,6 @@ in
     '';
   };
 
-  # TODO: configure helix, install traefik
+  # TODO: install traefik
   system.stateVersion = "25.05";
 }
