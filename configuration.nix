@@ -5,7 +5,7 @@ let
   secrets = import "/etc/nixos/secrets.nix";
 in
 {
-  # import hardware config
+  # import hardware config and home manager
   imports = [
     ./hardware-configuration.nix
     (builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz" + "/nixos")
@@ -23,6 +23,7 @@ in
     shellAliases = {
       noe = "sudo hx /etc/nixos";
       nors = "sudo nixos-rebuild switch";
+      nod = "cd /etc/nixos";
       xc = "xclip -selection clipboard";
     };
   };
@@ -30,6 +31,11 @@ in
 
   # allow ssh connections
   services.openssh.enable = true;
+
+  # configure root account
+  users.users.root = {
+    shell = pkgs.zsh;
+  };
   
   # make user account
   users.groups.brenn = {};
@@ -93,6 +99,19 @@ in
     '';
   };
 
+  # traefik
+  virtualisation.docker = {
+    enable = true;
+  };
+
+  users.groups.traefik = {};
+  users.users.traefik = {
+    isSystemUser = true;
+    group = "traefik";
+    extraGroups = [ "docker" ];
+  };
+  
   # TODO: install traefik
+  # https://github.com/aksiksi/compose2nix
   system.stateVersion = "25.05";
 }
