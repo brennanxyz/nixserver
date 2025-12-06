@@ -9,6 +9,7 @@ in
   imports = [
     ./hardware-configuration.nix
     (builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz" + "/nixos")
+    ./traefik.nix
   ];
 
   # boot
@@ -45,6 +46,7 @@ in
     extraGroups = [ "wheel"];
     openssh.authorizedKeys.keys = [
       secrets.brenn_ssh_key
+      secrets.vm_ssh_key
     ];
     shell = pkgs.zsh;
     home = "/home/brenn";
@@ -98,20 +100,6 @@ in
       git-ignore = false
     '';
   };
-
-  # traefik
-  virtualisation.docker = {
-    enable = true;
-  };
-
-  users.groups.traefik = {};
-  users.users.traefik = {
-    isSystemUser = true;
-    group = "traefik";
-    extraGroups = [ "docker" ];
-  };
-  
-  # TODO: install traefik
-  # https://github.com/aksiksi/compose2nix
+    
   system.stateVersion = "25.05";
 }
