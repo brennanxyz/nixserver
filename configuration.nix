@@ -63,6 +63,7 @@ in
   # install packages
   environment.systemPackages = with pkgs; [
     git
+    gh
     helix
     xclip
   ];
@@ -76,7 +77,7 @@ in
     home.stateVersion = "25.05";
     
     home.file.".config/helix/config.toml".text = ''
-      theme = "gruvbox-dark"
+      theme = "gruvbox_dark_hard"
 
       [editor]
       line-number = "relative"
@@ -91,7 +92,7 @@ in
     home.stateVersion = "25.05";
     
     home.file.".config/helix/config.toml".text = ''
-      theme = "gruvbox-dark"
+      theme = "gruvbox_dark_hard"
 
       [editor]
       line-number = "relative"

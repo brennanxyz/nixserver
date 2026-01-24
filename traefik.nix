@@ -35,7 +35,7 @@ in
           "/etc/traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
           # dynamic configuration directory
           "/etc/traefik/dynamic:/etc/traefik/dynamic:ro"
-          # et's Encrypt certificates storage
+          # Let's Encrypt certificates storage
           "/var/lib/traefik/acme.json:/acme.json"
         ];
         cmd = [
