@@ -9,7 +9,9 @@ in
   imports = [
     ./hardware-configuration.nix
     (builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz" + "/nixos")
+    ./wraut.nix
     ./traefik.nix
+    
   ];
 
   # boot
@@ -32,6 +34,15 @@ in
 
   # allow ssh connections
   services.openssh.enable = true;
+
+  # firewall exception for direct service
+  networking.firewall = {
+    enable = true;
+    # Allow Docker bridge network to access port 3000
+    extraCommands = ''
+      iptables -A INPUT -i docker0 -p tcp --dport 3000 -j ACCEPT
+    '';
+  };
 
   # configure root account
   users.users.root = {

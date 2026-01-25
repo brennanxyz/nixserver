@@ -41,6 +41,7 @@ in
         cmd = [
           "--configFile=/etc/traefik/traefik.yml"
         ];
+        extraOptions = [ "--add-host=host.docker.internal:host-gateway" ];
         labels = {
           "traefik.enable" = "true";
           "traefik.http.routers.dashboard.rule" = "Host(`traefik.daxharris.com`)";
@@ -107,5 +108,35 @@ in
   
     accessLog: {}
   '';
+
+  environment.etc."traefik/dynamic/wraut.yml" = {
+    text = ''
+      http:
+        routers:
+          wraut-router:
+            rule: "Host(`wraut.daxharris.com`)"
+            service: wraut
+            tls:
+              certResolver: letsencrypt
+            entrypoints:
+              - websecure
+            middlewares:
+              - auth@file
+        middlewares:
+          auth:
+            basicauth:
+              users:
+                - "${secrets.traefik_creds}"
+            
+        services:
+          wraut:
+            loadBalancer:
+              servers:
+                - url: "http://host.docker.internal:3000"
+          
+    '';
+    mode = "copy";
+  };
+  
   networking.firewall.allowedTCPPorts = [ 80 443 8080 ];
 }
