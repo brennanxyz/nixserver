@@ -61,9 +61,11 @@ in
         ${pkgs.coreutils}/bin/mkdir -p /var/lib/wraut/git
         ${pkgs.coreutils}/bin/mkdir -p /var/lib/wraut/live
         ${pkgs.coreutils}/bin/mkdir -p /var/lib/wraut/logs
+        ${pkgs.coreutils}/bin/mkdir -p /var/lib/wraut/fs
       
         # Set ownership
         ${pkgs.coreutils}/bin/chown -R wraut-user:wraut-user /var/lib/wraut
+        ${pkgs.coreutils}/bin/chmod 1777 /var/lib/wraut/fs
       '');
       Environment = [
         "PATH=${pkgs.docker}/bin:${pkgs.coreutils}/bin"
